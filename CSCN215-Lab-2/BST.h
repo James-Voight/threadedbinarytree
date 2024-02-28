@@ -94,6 +94,7 @@ public:
         else printhelp(root, 0);
     }
 
+    //print smallest to largest
     void printInorder() const {
         if (root == NULL) cout << "The BST is empty.\n";
         else {
@@ -106,6 +107,7 @@ public:
         }
     }
 
+    //print largest to smallest
     void printReverse() const {
         if (root == NULL) cout << "The BST is empty.\n";
         else {
@@ -123,7 +125,7 @@ public:
     }
 
     BSTNode<Key, E>* findNextInorder(BSTNode<Key, E>* current) const {
-        if (current->isThreadedRight() == 0) {
+        /*if (current->isThreadedRight() == 0) {
             return current->right();
         }
 
@@ -131,36 +133,36 @@ public:
         while (current->isThreadedLeft() != 0) {
             current = current->left();
         }
-        return current;
+        return current;*/
         // If the node has a right child, go to the leftmost node in the right subtree
-        //if (!current) {
-        //    return nullptr; // Handle null current pointer
-        //}
+        if (!current) {
+            return nullptr; // Handle null current pointer
+        }
 
-        //// If there is a right child, go to the leftmost node in the right subtree
-        //if (!current->isThreadedRight() && current->right()) {
-        //    current = current->right();
-        //    while (current->left() != nullptr) {
-        //        current = current->left();
-        //    }
-        //}
-        //else {
-        //    // Otherwise, move up until finding the first ancestor for which
-        //    // the current node is in its left subtree
-        //    while (current && current->isThreadedRight()) {
-        //        current = current->right();
-        //        if (!current) {
-        //            break;  // Break out of the loop if current is nullptr
-        //        }
-        //    }
+        // If there is a right child, go to the leftmost node in the right subtree
+        if (!current->isThreadedRight() && current->right()) {
+            current = current->right();
+            while (current->left() != nullptr) {
+                current = current->left();
+            }
+        }
+        else {
+            // Otherwise, move up until finding the first ancestor for which
+            // the current node is in its left subtree
+            while (current && current->isThreadedRight()) {
+                current = current->right();
+                if (!current) {
+                    break;  // Break out of the loop if current is nullptr
+                }
+            }
 
-        //    // Ensure that current is not null before accessing right child
-        //    if (current) {
-        //        current = current->right();
-        //    }
-        //}
+            // Ensure that current is not null before accessing right child
+            if (current) {
+                current = current->right();
+            }
+        }
 
-        //return current;
+        return current;
     }
 
     BSTNode<Key, E>* findPrevInorder(BSTNode<Key, E>* current) const {
